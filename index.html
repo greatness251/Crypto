@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CoinPulse — Live Crypto Search &amp; Ecosystem Hub</title>
+  <meta name="description" content="Search live cryptocurrency prices, 7-day trends, and explore top crypto exchanges, wallets, charts, and block explorers." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./css/tokens.css" />
+  <link rel="stylesheet" href="./css/styles.css" />
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('coinpulse_theme');
+        if (saved === 'light' || saved === 'dark') {
+          document.documentElement.setAttribute('data-theme', saved);
+        }
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+  <div class="ambient-glow" aria-hidden="true"></div>
+
+  <!-- Sticky Task Bar -->
+  <header class="taskbar" id="taskbar">
+    <div class="container taskbar__inner">
+      <a href="#search-section" class="brand" aria-label="CoinPulse Home">
+        <span class="brand__mark" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="28" height="28" rx="8" fill="url(#cp-grad)" />
+            <path d="M8.5 14.5L12 11L15 14L19.5 9.5" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M16.5 9.5H19.5V12.5" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+            <circle cx="9.5" cy="18.5" r="1.5" fill="white" fill-opacity="0.85" />
+            <circle cx="14" cy="18.5" r="1.5" fill="white" fill-opacity="0.55" />
+            <circle cx="18.5" cy="18.5" r="1.5" fill="white" fill-opacity="0.35" />
+            <defs>
+              <linearGradient id="cp-grad" x1="0" y1="0" x2="28" y2="28" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#6366F1" />
+                <stop offset="1" stop-color="#0EA5E9" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </span>
+        <span class="brand__name">CoinPulse</span>
+      </a>
+
+      <nav class="taskbar__nav" aria-label="Primary Navigation">
+        <a href="#search-section" class="nav-link is-active" data-nav="search">Search</a>
+        <a href="#markets-section" class="nav-link" data-nav="markets">Markets</a>
+        <a href="#apps-section" class="nav-link" data-nav="apps">Crypto Apps</a>
+        <button type="button" class="nav-link nav-link--btn" id="nav-watchlist-btn" data-nav="watchlist">
+          Watchlist
+          <span class="badge-count" id="watchlist-count">0</span>
+        </button>
+      </nav>
+
+      <div class="taskbar__controls">
+        <div class="api-status" id="api-status" title="Market data connection status">
+          <span class="api-status__dot" aria-hidden="true"></span>
+          <span class="api-status__text" id="api-status-text">Live</span>
+        </div>
+
+        <label class="currency-select-wrap" aria-label="Select fiat currency">
+          <select id="currency-select" class="currency-select">
+            <option value="usd">USD ($)</option>
+            <option value="ngn">NGN (₦)</option>
+            <option value="eur">EUR (€)</option>
+            <option value="gbp">GBP (£)</option>
+            <option value="jpy">JPY (¥)</option>
+          </select>
+        </label>
+
+        <button type="button" class="icon-btn" id="theme-toggle" aria-label="Toggle color theme" title="Toggle dark/light theme">
+          <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+          </svg>
+          <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <!-- Hero Search Section -->
+    <section class="hero-search container" id="search-section" aria-labelledby="hero-title">
+      <div class="hero-search__copy">
+        <span class="eyebrow">Real-Time Valuation &amp; Market Explorer</span>
+        <h1 class="hero-title" id="hero-title">Check any cryptocurrency’s live value in seconds.</h1>
+        <p class="hero-subtitle">Search by coin name or ticker symbol, convert values instantly, and jump to trusted crypto apps below.</p>
+      </div>
+
+      <div class="search-wrapper">
+        <form class="search-bar" id="search-form" role="search" autocomplete="off">
+          <span class="search-bar__icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </span>
+          <input
+            type="text"
+            id="search-input"
+            class="search-bar__input"
+            placeholder="Search Bitcoin, ETH, Solana, PEPE..."
+            aria-label="Search cryptocurrency"
+            aria-autocomplete="list"
+            aria-controls="autocomplete-list"
+            aria-expanded="false"
+          />
+          <kbd class="search-bar__kbd" aria-hidden="true">/</kbd>
+          <button type="button" class="search-bar__clear" id="search-clear" aria-label="Clear search" hidden>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+          <button type="submit" class="btn-primary search-bar__submit" id="search-submit">
+            Search
+          </button>
+        </form>
+
+        <ul class="autocomplete-list" id="autocomplete-list" role="listbox" hidden></ul>
+
+        <div class="quick-chips" id="quick-chips" aria-label="Popular cryptocurrencies">
+          <span class="quick-chips__label">Popular:</span>
+          <button type="button" class="chip" data-coin-id="bitcoin">Bitcoin (BTC)</button>
+          <button type="button" class="chip" data-coin-id="ethereum">Ethereum (ETH)</button>
+          <button type="button" class="chip" data-coin-id="solana">Solana (SOL)</button>
+          <button type="button" class="chip" data-coin-id="binancecoin">BNB</button>
+          <button type="button" class="chip" data-coin-id="ripple">XRP</button>
+        </div>
+      </div>
+
+      <!-- Coin Value Spotlight -->
+      <div class="spotlight-region" id="spotlight-container" aria-live="polite"></div>
+    </section>
+
+    <!-- Live Market Pulse / Watchlist -->
+    <section class="section container" id="markets-section" aria-labelledby="markets-title">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title" id="markets-title">Live Market Pulse</h2>
+          <p class="section-subtitle">Click any cryptocurrency to inspect its live valuation, 7-day trend, and converter.</p>
+        </div>
+        <div class="segmented-tabs" role="tablist" aria-label="Market view filter">
+          <button type="button" class="seg-tab is-active" id="tab-top-markets" role="tab" aria-selected="true" data-market-tab="top">Top Markets</button>
+          <button type="button" class="seg-tab" id="tab-watchlist" role="tab" aria-selected="false" data-market-tab="watchlist">Watchlist</button>
+        </div>
+      </div>
+
+      <div class="markets-grid" id="markets-grid"></div>
+    </section>
+
+    <!-- Other Crypto Apps & Sites Hub -->
+    <section class="section container" id="apps-section" aria-labelledby="apps-title">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title" id="apps-title">Explore Crypto Apps &amp; Sites</h2>
+          <p class="section-subtitle">Trusted exchanges, self-custody wallets, charting terminals, and block explorers.</p>
+        </div>
+        <div class="filter-pills" id="apps-filter-pills" role="tablist" aria-label="Filter crypto apps by category">
+          <button type="button" class="filter-pill is-active" data-category="all" role="tab" aria-selected="true">All</button>
+          <button type="button" class="filter-pill" data-category="exchanges" role="tab" aria-selected="false">Exchanges</button>
+          <button type="button" class="filter-pill" data-category="wallets" role="tab" aria-selected="false">Wallets</button>
+          <button type="button" class="filter-pill" data-category="charts" role="tab" aria-selected="false">Charts &amp; Data</button>
+          <button type="button" class="filter-pill" data-category="defi" role="tab" aria-selected="false">DeFi &amp; Explorers</button>
+        </div>
+      </div>
+
+      <div class="apps-grid" id="apps-grid"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p class="footer__text">
+        <strong>CoinPulse</strong> &mdash; Real-time market data powered by the CoinGecko Public API.
+      </p>
+      <p class="footer__note">Prices are informational only and may be cached briefly during high-traffic periods.</p>
+    </div>
+  </footer>
+
+  <script defer src="./js/app.bundle.js"></script>
+</body>
+</html>
